@@ -1,25 +1,29 @@
 from pathlib import Path
-from dotenv import load_dotenv
-
-import dj_database_url
 import os
+import environ
+
+
+env = environ.Env(
+    #set casting, default value
+    DEBUG=(bool, False)
+)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(os.path.join(BASE_DIR/".eVar", ".env"))
 
-
+environ.Env.read_env(BASE_DIR /'eVa/.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG")
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost"]
-ALLOWED_HOSTS += os.environ.get("ALLOWED_HOSTS").split()
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',env('DJANGO_ALLOWED_HOSTS')]
+# ALLOWED_HOSTS = os.environ.get["DJANGO_ALLOWED_HOSTS"]
 
 # Application definition
 
@@ -69,17 +73,27 @@ WSGI_APPLICATION = 'lib_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'sirchimex$alx',
+#         'USER': 'sirchimex',
+#         'PASSWORD': 'follow_us@1nc',
+#         'HOST': 'sirchimex.mysql.pythonanywhere-services.com',
+#         'PORT': '3306',
 #     }
 # }
-DATABASES = {
-    'default': dj_database_url.config(
-        default="sqlite://" + os.path.join(BASE_DIR, "db.sqlite3")
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default="sqlite://" + os.path.join(BASE_DIR, "db.sqlite3")
+#     )
+# }
 
 
 # Password validation
