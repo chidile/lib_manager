@@ -23,7 +23,10 @@ class CustomUser(AbstractUser):
         ('member', 'Member'),  
     )  
     role = models.CharField(max_length=6, choices=USER_ROLE_CHOICES, default='member')  
-
+    
+    class Meta:
+        ordering = ['-id']
+        
     def __str__(self):  
         return self.username
     

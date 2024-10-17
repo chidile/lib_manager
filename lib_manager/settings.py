@@ -11,7 +11,7 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-environ.Env.read_env(BASE_DIR /'eVa/.env')
+environ.Env.read_env(BASE_DIR /'.eVa/.env')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -70,30 +70,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'lib_manager.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+### Database
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / '.eVa/db.sqlite3',
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'sirchimex$alx',
-#         'USER': 'sirchimex',
-#         'PASSWORD': 'follow_us@1nc',
-#         'HOST': 'sirchimex.mysql.pythonanywhere-services.com',
-#         'PORT': '3306',
-#     }
-# }
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default="sqlite://" + os.path.join(BASE_DIR, "db.sqlite3")
-#     )
-# }
+
+
+
+
 
 
 # Password validation
@@ -154,8 +142,8 @@ REST_FRAMEWORK = {
 # Implement Notifications for Users 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'  
+EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = 2525  
 EMAIL_USE_TLS = True  
-EMAIL_HOST_USER = '0f47a5c07e2212'  # Must configure your email  
-EMAIL_HOST_PASSWORD = '88c350baeac5e1'  # Must configure your password
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")  # Must configure your email  
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")  # Must configure your password
